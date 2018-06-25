@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en">
+  <head></head>
+  <body>
+    <form action="{{ action }}" method="get" name="checkout">
+ <input type="hidden" name="itransfer_participant_id" value="{{ parameters['invoicebox_participant_id'] }}" />
+   <input type="hidden" name="itransfer_participant_ident" value="{{ parameters['invoicebox_participant_ident'] }}" />
+   <input type="hidden" name="itransfer_participant_sign" value="{{ parameters['invoicebox_sign'] }}" />
+   <input type="hidden" name="itransfer_order_id" value="{{ parameters['order_id'] }}" />
+   <input type="hidden" name="itransfer_order_amount" value="{{ parameters['total'] }}" />
+   <input type="hidden" name="itransfer_order_quantity" value="{{ parameters['quantity'] }}" />
+   <input type="hidden" name="itransfer_testmode" value="{{ parameters['testmode'] }}" />
+   <input type="hidden" name="itransfer_order_currency_ident" value="{{ parameters['currency_code'] }}" />
+   <input type="hidden" name="itransfer_order_description" value="{{ parameters['invoice'] }}" />
+   <input type="hidden" name="itransfer_person_name" value="{{ parameters['first_name']~' '~parameters['last_name'] }}" />
+   <input type="hidden" name="itransfer_person_email" value="{{ parameters['email'] }}" />
+   <input type="hidden" name="itransfer_person_phone" value="{{ parameters['phone'] }}" />
+   <input type="hidden" name="itransfer_body_type" value="PRIVATE" />
+   <input type="hidden" name="itransfer_url_return" value="{{ parameters['return'] }}" />
+   <input type="hidden" name="itransfer_url_returnsuccess" value="{{ parameters['returnsuccess'] }}" />
+   <input type="hidden" name="itransfer_url_notify" value="{{ parameters['notify_url'] }}" />
+   <input name="itransfer_cms_name" value="Opencart" type="hidden">
+   
+ {% set i=0 %}
+ {% for product in parameters['products'] %} 
+ {% set i = i + 1 %}
+   <input type="hidden" name="itransfer_item{{ i }}_name" value="{{ product['name'] }}" />
+   <input type="hidden" name="itransfer_item{{ i }}_quantity" value="{{ product['quantity'] }}" />
+   <input type="hidden" name="itransfer_item{{ i }}_price" value="{{ product['price'] }}" />
+   <input type="hidden" name="itransfer_item{{ i }}_vat" value="{{ product['vat'] }}" />
+   <input type="hidden" name="itransfer_item{{ i }}_measure" value="шт." />
+   {% endfor %} 
+   
+</form>
+    <script type="text/javascript"><!--
+      //document.forms['checkout'].submit();
+    //--></script>
+  </body>
+</html>

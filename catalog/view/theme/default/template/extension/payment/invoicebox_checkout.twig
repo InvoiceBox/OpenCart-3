@@ -1,0 +1,48 @@
+{% if (testmode) %} 
+  <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ text_testmode }}</div>
+{% endif %} 
+{% if (instruction) %} 
+  <div class="well well-sm"><p>{{ instruction }}</p></div>
+{% endif %} 
+<form action="{{ action }}" name='checkout' method="post">
+
+ <input type="hidden" name="itransfer_participant_id" value="{{ invoicebox_participant_id }}" />
+   <input type="hidden" name="itransfer_participant_ident" value="{{ invoicebox_participant_ident }}" />
+   <input type="hidden" name="itransfer_participant_sign" value="{{ invoicebox_sign }}" />
+   <input type="hidden" name="itransfer_order_id" value="{{ order_id }}" />
+   <input type="hidden" name="itransfer_order_amount" value="{{ total }}" />
+   <input type="hidden" name="itransfer_order_quantity" value="{{ quantity }}" />
+   <input type="hidden" name="itransfer_testmode" value="{{ testmode }}" />
+   <input type="hidden" name="itransfer_order_currency_ident" value="{{ currency_code }}" />
+   <input type="hidden" name="itransfer_order_description" value="{{ invoice }}" />
+   <input type="hidden" name="itransfer_person_name" value="{{ first_name~' '~last_name }}" />
+   <input type="hidden" name="itransfer_person_email" value="{{ email }}" />
+   <input type="hidden" name="itransfer_person_phone" value="{{ phone }}" />
+   <input type="hidden" name="itransfer_body_type" value="PRIVATE" />
+   <input type="hidden" name="itransfer_url_return" value="{{ return }}" />
+   <input type="hidden" name="itransfer_url_returnsuccess" value="{{ returnsuccess }}" />
+   <input type="hidden" name="itransfer_url_notify" value="{{ notify_url }}" />
+   <input name="itransfer_cms_name" value="Opencart3" type="hidden">
+   
+ {% set i=0 %}
+ {% for product in products %} 
+ {% set i = i + 1 %}
+   <input type="hidden" name="itransfer_item{{ i }}_name" value="{{ product['name'] }}" />
+   <input type="hidden" name="itransfer_item{{ i }}_quantity" value="{{ product['quantity'] }}" />
+   <input type="hidden" name="itransfer_item{{ i }}_price" value="{{ product['price'] }}" />
+   <input type="hidden" name="itransfer_item{{ i }}_vatrate" value="{{ product['vatrate'] }}" />
+   <input type="hidden" name="itransfer_item{{ i }}_measure" value="шт." />
+   {% endfor %} 
+   <div class="buttons">
+    <div class="pull-right">
+      <input type="button" value="{{ button_confirm }}" class="btn btn-primary" id = "button-confirm"/>
+    </div>
+  </div>
+</form>
+<script type="text/javascript"><!--
+$('#button-confirm').on('click', function() {
+        document.forms['checkout'].submit();
+    });
+//--></script>   
+   
+  
