@@ -39,7 +39,7 @@ class ControllerExtensionPaymentInvoicebox extends Controller {
 
                 $data['products'][] = array(
                     'name' => htmlspecialchars($product['name']),
-                    'price' => $this->currency->format(($product['price'] * $product['quantity']) * $kcup / $product['quantity'], $order_info['currency_code'], false, false),
+                    'price' => number_format(round($product['price'] * $product['quantity'] * $kcup / $product['quantity'],2), 2, '.', ''),
                     'quantity' => $product['quantity'],
                     'vatrate' => $this->tax->getTax($product['price'], $product['tax_class_id'])
                 );
@@ -49,14 +49,14 @@ class ControllerExtensionPaymentInvoicebox extends Controller {
             if ($shipping > 0) {
                 $data['products'][] = array(
                     'name' => htmlspecialchars($order_info['shipping_method']),
-                    'price' => $this->currency->format($shipping, $order_info['currency_code'], false, false),
+                    'price' => number_format($shipping, 2, '.', ''),
                     'quantity' => 1,
                     'vatrate' => 0
                 );
             }
 
             $data['quantity'] = $quantity;
-            $data['total'] = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
+            $data['total'] = number_format($order_info['total'], 2, '.', '');
             $data['currency_code'] = $order_info['currency_code'];
             $data['first_name'] = html_entity_decode($order_info['payment_firstname'], ENT_QUOTES, 'UTF-8');
             $data['last_name'] = html_entity_decode($order_info['payment_lastname'], ENT_QUOTES, 'UTF-8');
